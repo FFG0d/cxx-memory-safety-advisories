@@ -1,0 +1,17 @@
+--- a/sgitopnm.c
++++ b/sgitopnm.c
+@@ -399,6 +399,14 @@
+                         table[sgiIndex].length / 2 :
+                         table[sgiIndex].length;
+ 
++                    /* The decode buffer holds WORSTCOMPR(xsize) elements;
++                       the length comes straight from the file. */
++                    if (length < 0 || length > WORSTCOMPR(head->xsize))
++                        pm_error("invalid RLE scanline length %ld "
++                                 "(maximum %u for xsize %u)",
++                                 length, WORSTCOMPR(head->xsize),
++                                 head->xsize);
++
+                     unsigned int i;
+ 
+                     /* Note: (offset < currentPosition) can happen */

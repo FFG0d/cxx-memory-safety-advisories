@@ -1,0 +1,11 @@
+--- a/pktopbm.c
++++ b/pktopbm.c
+@@ -391,7 +391,7 @@
+         dprintf("cwidth %d\n", cwidth);
+         dprintf("cheight %d\n", cheight);
+         if (cwidth < 0 || cheight < 0 ||
+-            cwidth > 65535 || cheight > 65535) {
++            cwidth > MAXROWWIDTH || cheight > 65535) {
+             *mustIgnoreP = true;
+         } else {
+             *mustIgnoreP = false;

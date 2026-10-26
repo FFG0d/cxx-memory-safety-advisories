@@ -1,0 +1,13 @@
+--- a/picttoppm.c
++++ b/picttoppm.c
+@@ -2243,7 +2243,9 @@
+ 
+     stage = "reading color table";
+ 
+-    MALLOCARRAY(colorTable, ctSize + 1);
++    /* 8bpp rasters use one byte per pixel as a table index, so the table
++       must cover all 256 possible values even when ctSize is smaller. */
++    MALLOCARRAY(colorTable, (ctSize + 1 < 256) ? 256 : ctSize + 1);
+     if (!colorTable)
+         pm_error("no memory for color table");
+ 

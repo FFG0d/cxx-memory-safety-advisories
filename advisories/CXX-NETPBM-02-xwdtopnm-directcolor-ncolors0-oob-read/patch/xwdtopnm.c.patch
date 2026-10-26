@@ -1,0 +1,12 @@
+--- a/xwdtopnm.c
++++ b/xwdtopnm.c
+@@ -599,6 +599,9 @@
+           3 colormaps (shade maps) -- one for each color component.  Each pixel
+           is composed of 3 separate indices.
+         */
++
++        if (h11FixedP->ncolors == 0)
++            pm_error("DirectColor image declares zero colors");
+ 
+         *colorsP = pnm_allocrow(h11FixedP->ncolors);
+         for (i = 0; i < h11FixedP->ncolors; ++i)

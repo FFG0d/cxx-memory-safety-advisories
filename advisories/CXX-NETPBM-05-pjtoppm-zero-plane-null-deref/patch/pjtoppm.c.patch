@@ -1,0 +1,13 @@
+--- a/pjtoppm.c
++++ b/pjtoppm.c
+@@ -86,6 +86,10 @@
+                  * not return null. Even if it does, tough! We will
+                  * lose a line, and probably die on the next line anyway
+                  */
++                if (i == 0) {
++                    free(buf);
++                    pm_error("zero-length plane %u in mode 1 image", plane);
++                }
+                 image[row * planes + plane] = realloc(buf, i);
+             }
+         }

@@ -1,0 +1,11 @@
+--- a/spctoppm.c
++++ b/spctoppm.c
+@@ -169,6 +169,8 @@
+ 
+     /* Compute screen index. */
+     i = 160 + 2 * ( n / 7960 ) + 8 * ( ( n % 7960 ) / 2 ) + ( n & 1 );
++    if (i < 0 || i >= (int)sizeof(screen))
++        pm_error("decoded character index %d is outside the screen buffer", i);
+     screen[i] = c;
+     }
+ 

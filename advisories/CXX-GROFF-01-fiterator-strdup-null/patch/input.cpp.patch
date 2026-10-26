@@ -1,0 +1,15 @@
+# CXX-GROFF-01 - suggested fix
+# note: Do not call strdup() before the NULL check on fn.
+--- a/src/roff/troff/input.cpp
++++ b/src/roff/troff/input.cpp
+@@ -443,7 +443,9 @@
+ : fp(f), lineno(1), was_popened(popened),
+   seen_newline(false), seen_escape(false)
+ {
+-  filename = strdup(const_cast<char *>(fn));
++  filename = (fn == 0 /* nullptr */
++	      ? 0 /* nullptr */
++	      : strdup(const_cast<char *>(fn)));
+   if ((font::use_charnames_in_special) && (fn != 0 /* nullptr */)) {
+     if (!the_output)
+       init_output();

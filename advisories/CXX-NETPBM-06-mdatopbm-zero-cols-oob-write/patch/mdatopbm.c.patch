@@ -1,0 +1,12 @@
+--- a/mdatopbm.c
++++ b/mdatopbm.c
+@@ -283,6 +283,9 @@
+         pm_readlittleshort(ifP, &yy); nInCols = (unsigned short)yy;
+     }
+ 
++    if (nInCols == 0)
++        pm_error("image header declares zero columns");
++
+     nOutCols = 8 * nInCols;
+     nOutRows = nInRows;
+     if (bScale)

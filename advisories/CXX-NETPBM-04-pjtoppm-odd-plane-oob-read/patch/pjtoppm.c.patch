@@ -1,0 +1,14 @@
+--- a/pjtoppm.c
++++ b/pjtoppm.c
+@@ -73,6 +73,11 @@
+                      col < imlen[row * planes + plane];
+                      col += 2) {
+                     int cmd, val;
++                    if (col + 1 >= imlen[row * planes + plane]) {
++                        pm_message("odd plane length %u in mode 1 image",
++                                   imlen[row * planes + plane]);
++                        break;
++                    }
+                     for (cmd = image[row * planes + plane][col],
+                              val = image[plane + row * planes][col+1];
+                          cmd >= 0 && i < newcols; --cmd, ++i)

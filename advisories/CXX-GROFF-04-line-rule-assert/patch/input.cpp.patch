@@ -1,0 +1,15 @@
+# CXX-GROFF-04 - suggested fix
+# note: Diagnostic instead of an assertion.
+--- a/src/roff/troff/input.cpp
++++ b/src/roff/troff/input.cpp
+@@ -6128,8 +6128,8 @@
+ 	  && input_stack::get_level() == start_level)) {
+       *cip = tok.get_charinfo(true /* required */);
+       if (0 /* nullptr */ == *cip)
+-	assert(0 == "attempted to use token without charinfo in"
+-	       " line-drawing escape sequence");
++	error("attempted to use token without charinfo in"
++	      " line-drawing escape sequence");
+       tok.next();
+     }
+     if (!(start_token == tok

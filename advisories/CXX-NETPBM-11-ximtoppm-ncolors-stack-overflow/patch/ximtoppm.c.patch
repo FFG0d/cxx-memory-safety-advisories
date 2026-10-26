@@ -1,0 +1,12 @@
+--- a/ximtoppm.c
++++ b/ximtoppm.c
+@@ -153,6 +153,9 @@
+     else if (headerP->nchannels == 1 && headerP->bits_channel == 8) {
+         unsigned int i;
+ 
++        if (headerP->ncolors > 256)
++            pm_error("colormap declares %u entries, but the header stores "
++                     "at most 256", headerP->ncolors);
+         MALLOCARRAY_NOFAIL(headerP->colors, headerP->ncolors);
+ 
+         for (i=0; i < headerP->ncolors; ++i) {

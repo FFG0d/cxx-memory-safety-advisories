@@ -1,0 +1,15 @@
+--- a/ddbugtopbm.c
++++ b/ddbugtopbm.c
+@@ -140,6 +140,12 @@
+         } else {
+             /* DiddleBug */
+             int const sketchlen = buf[8]*256+buf[9];
++            if (sketchlen > 16*1024 - 26 || sketchlen - 80 - 1 < 0)
++                pm_error("sketch length %d exceeds the record buffer",
++                         sketchlen);
++            if (sketchlen > 80 + (int)sizeof(obuf))
++                pm_error("sketch length %d exceeds the output buffer",
++                         sketchlen);
+             uncompress_sketch(buf+26+80+1, obuf, sketchlen-80-1);
+             nameptr = (char*)(buf+26+sketchlen);
+         }
